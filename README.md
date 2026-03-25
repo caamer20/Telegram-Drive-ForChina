@@ -26,7 +26,7 @@ Telegram Drive leverages the Telegram API to allow you to upload, organize, and 
 *   **Privacy Focused**: API keys and data stay local. No third-party servers.
 *   **Cross-Platform**: Native apps for macOS (Intel/ARM), Windows, and Linux.
 
-### 🇨🇳 China VPN Optimizations
+### VPN Optimizations
 
 This version includes specific backend enhancements to handle the high latency, packet loss, and connection instability common when routing Telegram traffic through VPNs from China:
 
