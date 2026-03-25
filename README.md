@@ -1,4 +1,4 @@
-# Telegram Drive (Optimized for China VPNs)
+# Telegram Drive (Optimized for VPNs)
 
 **Telegram Drive** is an open-source, cross-platform desktop application that turns your Telegram account into an unlimited, secure cloud storage drive. Built with **Tauri**, **Rust**, and **React**.
 
