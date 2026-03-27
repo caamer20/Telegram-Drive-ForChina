@@ -6,11 +6,6 @@ use grammers_client::types::Media;
 
 use std::sync::Arc;
 
-/// Maximum bytes to aggregate before flushing to the HTTP response.
-/// Batching multiple 512KB Telegram chunks into ~4MB blocks reduces
-/// the impact of VPN round-trip latency on playback smoothness.
-const BUFFER_FLUSH_SIZE: usize = 4 * 1024 * 1024; // 4 MB
-
 /// Maximum retries per chunk fetch before giving up on the stream.
 const CHUNK_RETRY_COUNT: u32 = 3;
 
@@ -106,7 +101,7 @@ async fn stream_media(
     }
 }
 
-/// Build a buffered stream that aggregates chunks before flushing.
+/// Build a buffered stream that yields chunks immediately as they arrive.
 /// This is used for full-file (non-Range) responses.
 fn build_buffered_stream(
     client: grammers_client::Client,
@@ -114,32 +109,16 @@ fn build_buffered_stream(
 ) -> impl futures::stream::Stream<Item = Result<web::Bytes, actix_web::Error>> {
     async_stream::stream! {
         let mut download_iter = client.iter_download(&media);
-        let mut buffer = Vec::with_capacity(BUFFER_FLUSH_SIZE);
 
         loop {
             let chunk_result = fetch_chunk_with_retry(&mut download_iter).await;
             match chunk_result {
                 Ok(Some(bytes)) => {
-                    buffer.extend_from_slice(&bytes);
-                    // Flush when buffer exceeds threshold
-                    if buffer.len() >= BUFFER_FLUSH_SIZE {
-                        yield Ok::<_, actix_web::Error>(web::Bytes::from(std::mem::take(&mut buffer)));
-                        buffer = Vec::with_capacity(BUFFER_FLUSH_SIZE);
-                    }
+                    yield Ok::<_, actix_web::Error>(web::Bytes::from(bytes));
                 }
-                Ok(None) => {
-                    // End of file — flush remaining buffer
-                    if !buffer.is_empty() {
-                        yield Ok::<_, actix_web::Error>(web::Bytes::from(buffer));
-                    }
-                    break;
-                }
+                Ok(None) => break,
                 Err(e) => {
                     log::error!("Stream error after retries: {}", e);
-                    // Flush what we have before breaking
-                    if !buffer.is_empty() {
-                        yield Ok::<_, actix_web::Error>(web::Bytes::from(buffer));
-                    }
                     break;
                 }
             }
@@ -160,7 +139,6 @@ fn build_range_stream(
         let mut download_iter = client.iter_download(&media).skip_chunks(skip_chunks);
         let mut bytes_sent: u64 = 0;
         let mut is_first_chunk = true;
-        let mut buffer = Vec::with_capacity(BUFFER_FLUSH_SIZE);
 
         loop {
             if bytes_sent >= content_length {
@@ -184,25 +162,12 @@ fn build_range_stream(
                     let remaining = (content_length - bytes_sent) as usize;
                     let to_send = if data.len() > remaining { &data[..remaining] } else { data };
 
-                    buffer.extend_from_slice(to_send);
                     bytes_sent += to_send.len() as u64;
-
-                    if buffer.len() >= BUFFER_FLUSH_SIZE || bytes_sent >= content_length {
-                        yield Ok::<_, actix_web::Error>(web::Bytes::from(std::mem::take(&mut buffer)));
-                        buffer = Vec::with_capacity(BUFFER_FLUSH_SIZE);
-                    }
+                    yield Ok::<_, actix_web::Error>(web::Bytes::from(to_send.to_vec()));
                 }
-                Ok(None) => {
-                    if !buffer.is_empty() {
-                        yield Ok::<_, actix_web::Error>(web::Bytes::from(buffer));
-                    }
-                    break;
-                }
+                Ok(None) => break,
                 Err(e) => {
                     log::error!("Range stream error after retries: {}", e);
-                    if !buffer.is_empty() {
-                        yield Ok::<_, actix_web::Error>(web::Bytes::from(buffer));
-                    }
                     break;
                 }
             }
