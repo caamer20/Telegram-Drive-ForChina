@@ -8,7 +8,7 @@ This specific fork has been **heavily optimized for users in China accessing the
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20MacOS%20%7C%20Linux-blue)
 
 
-![Auth Screen](screenshots/AuthScreen.png)
+![Auth Screen]([screenshots/AuthScreen.png](https://raw.githubusercontent.com/caamer20/Telegram-Drive/refs/heads/main/screenshots/AuthScreen.png))
 
 ##  What is Telegram Drive?
 
