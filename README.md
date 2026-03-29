@@ -1,4 +1,4 @@
-# Telegram Drive (Optimized for VPNs)
+<img width="3808" height="2338" alt="image" src="https://github.com/user-attachments/assets/ce6e17b8-5410-403f-a190-b1fc0d4c0545" /># Telegram Drive (Optimized for VPNs)
 
 **Telegram Drive** is an open-source, cross-platform desktop application that turns your Telegram account into an unlimited, secure cloud storage drive. Built with **Tauri**, **Rust**, and **React**.
 
@@ -43,23 +43,23 @@ This version includes specific backend enhancements to handle the high latency, 
 
 | Dashboard | File Preview |
 |-----------|--------------|
-| ![Dashboard](screenshots/DashboardWithFiles.png) | ![Preview](screenshots/ImagePreview.png) |
+| ![Dashboard](https://raw.githubusercontent.com/caamer20/Telegram-Drive/refs/heads/main/screenshots/DashboardWithFiles.png) | ![Preview](https://raw.githubusercontent.com/caamer20/Telegram-Drive/refs/heads/main/screenshots/ImagePreview.png) |
 
 | Grid View | Authentication |
 |-----------|----------------|
-| ![Dark Mode](screenshots/DarkModeGrid.png) | ![Login](screenshots/LoginScreen.png) |
+| ![Dark Mode](https://raw.githubusercontent.com/caamer20/Telegram-Drive/refs/heads/main/screenshots/DarkModeGrid.png) | ![Login](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/LoginScreen.png?raw=true) |
 
 | Audio Playback | Video Playback |
 |----------------|----------------|
-| ![Audio Playback](screenshots/AudioPlayback.png) | ![Video Playback](screenshots/VideoPlayback.png) |
+| ![Audio Playback]([screenshots/AudioPlayback.png](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/AudioPlayback.png?raw=true)) | ![Video Playback](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/VideoPlayback.png?raw=true) |
 
 | Auth Code Screen | Upload Example |
 |------------------|-------------|
-| ![Auth Code Screen](screenshots/AuthCodeScreen.png) | ![Upload Example](screenshots/UploadExample.png) |
+| ![Auth Code Screen](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/AuthCodeScreen.png?raw=true) | ![Upload Example](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/UploadExample.png?raw=true) |
 
 | Folder Creation | Folder List View |
 |-----------------|------------------|
-| ![Folder Creation](screenshots/FolderCreation.png) | ![Folder List View](screenshots/FolderListView.png) |
+| ![Folder Creation](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/FolderCreation.png?raw=true) | ![Folder List View](https://github.com/caamer20/Telegram-Drive/blob/main/screenshots/FolderListView.png?raw=true) |
 
 ##  Tech Stack
 
