@@ -1,4 +1,4 @@
-<img width="3808" height="2338" alt="image" src="https://github.com/user-attachments/assets/ce6e17b8-5410-403f-a190-b1fc0d4c0545" /># Telegram Drive (Optimized for VPNs)
+# Telegram Drive (Optimized for VPNs)
 
 **Telegram Drive** is an open-source, cross-platform desktop application that turns your Telegram account into an unlimited, secure cloud storage drive. Built with **Tauri**, **Rust**, and **React**.
 
