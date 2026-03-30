@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Key, Lock, ArrowRight, Settings, ShieldCheck, Sun, Moon, HelpCircle, ExternalLink, X, Globe } from "lucide-react";
 import { load } from '@tauri-apps/plugin-store';
+import { open } from '@tauri-apps/plugin-opener';
 import { useTheme } from '../context/ThemeContext';
 
 type Step = "setup" | "phone" | "code" | "password";
@@ -514,7 +515,7 @@ export function AuthWizard({ onLogin }: { onLogin: () => void }) {
                                         Go to Telegram's Developer Portal
                                     </h3>
                                     <p className="text-sm text-telegram-subtext ml-8">
-                                        Visit <a href="https://my.telegram.org" target="_blank" className="text-telegram-primary underline hover:text-telegram-text">my.telegram.org</a> and log in with your phone number.
+                                        Visit <button type="button" onClick={(e) => { e.preventDefault(); open('https://my.telegram.org'); }} className="text-telegram-primary underline hover:text-telegram-text cursor-pointer">my.telegram.org</button> and log in with your phone number.
                                     </p>
                                 </div>
 
@@ -544,14 +545,14 @@ export function AuthWizard({ onLogin }: { onLogin: () => void }) {
                                     </p>
                                 </div>
 
-                                <a
-                                    href="https://my.telegram.org"
-                                    target="_blank"
+                                <button
+                                    type="button"
+                                    onClick={(e) => { e.preventDefault(); open("https://my.telegram.org"); }}
                                     className="w-full bg-telegram-primary text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-telegram-primary/90 transition-colors"
                                 >
                                     <ExternalLink className="w-4 h-4" />
                                     Open my.telegram.org
-                                </a>
+                                </button>
                             </div>
                         </motion.div>
                     </motion.div>
